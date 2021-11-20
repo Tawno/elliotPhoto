@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+{% block head %}
+<meta name="keywords" content=""  />
+<meta name="description" content="" />
+<meta name="copyright" content=""  />
+<meta name="author" content=""  />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<script src="{{ currentSite.baseUrl }}templates/js/main/jquery-3.4.1.min.js" async></script>
+<link rel="stylesheet" href="{{ currentSite.baseUrl }}templates/js/dist/photoswipe.css" > 
+<link rel="stylesheet" href="{{ currentSite.baseUrl }}templates/js/dist/default-skin/default-skin.css"> 
+<link rel="stylesheet" href="{{ currentSite.baseUrl }}templates/css/styleJ.css">
+<script src="{{ currentSite.baseUrl }}templates/js/dist/photoswipe.js" async></script>
+<script src="{{ currentSite.baseUrl }}templates/js/dist/photoswipe-ui-default.js" async></script>
+
+<title>Jesse Perrett</title>
+    {% endblock %}
+</head>
+    <body>
+        {% block nav %}
+        {% set category = craft.entries()
+        .section('navi')
+            .level('1')
+            .site('jessePerrett') %}
+        {% set categ = category.all() %}
+<ul class="navi">
+{% nav entry in categ %}
+<li><a href="{{ entry.linkto }}">{{ entry.title }}</a></li>
+{% endnav %}
+<li></li>
+<li style="float:right;">
+</li>
+<a href="{{ currentSite.baseUrl }}"><img src="/templates/img/JPlogo-blk.png"></a>
+</ul>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+        {% set rel = entry.photo.one() %}
+
+        G:/Users/Tawno/Documents/Skeskart/ACTIVE/ElliotPhotography/Live/web/img/gallery
+
+          {% for entry in craft.entries.all %}
+        <h2>{{ entry.titlex }}</h2>
+        {% endfor %}
+        {% set assets = craft.assets()
+            .volume('gallery')
+            .kind('image') %}
+
+     {% set rel = assets.all() %}
+       
+      {% for rel in entry.photo.all %}
+    <div>  <img src="{{ rel.url }}"  alt="photot" height="100%" width="100%"><figcaption>{{ entry.caption }}</figcaption></div>
+      {% endfor %}

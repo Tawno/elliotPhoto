@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% use 'header.html.twig' %}
+
+<head>
+{% block head %}
+
+     {{ parent() }}
+
+{% endblock %}
+</head>
+<body>
+ {% block nav %}
+
+  {{ parent() }} 
+
+ {% endblock %}
+ {% set entries = craft.entries()
+    .section('filmSoup')
+    .type('cans')
+    .all() %}
+
+	{% set soupsets = craft.assets() 
+    .type('cans')
+     .kind('image')
+     .entries %}
+
+    {% set soups = soupsets.all() %} 
+
+<section id="main-content">
+    <div id="guts">
+        <div class="soupholder flex cans">
+        {% for entry in entries %}
+            <div class="linker {{ entry.animCan }}">
+                <a class="can2" href="{{ entry.linkto }}" id="tomato" style="border-color: {{ entry.cancolour }};">
+                {% for soups in entry.photo.all %}
+                <div><img src="{{ soups.url }}" alt="cans"></div>
+                {% endfor %}  
+                </a>
+            <span class="soupanel" style="background-color: {{ entry.cancolour }}; color:{{ entry.textColour }}">
+                <div class="wrapper">
+                    <h2 style="color: {{ entry.textColour }}">{{ entry.title }}</h2>
+                    <p>{{ entry.detail | nl2br }}</p>
+                </div>
+            </span>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+</body>
+<footer>
+<script>	$(".linker").mouseover(function(){
+		$(this).children("span").fadeIn();
+	});
+	$(".linker").mouseleave(function(){
+		$(this).children("span").fadeOut();
+	});
+    </script>
+ {% use 'footer.html' %}
+ {% block footer %}
+ {{ parent() }}
+ {% endblock %}
+ </footer>
+</html>

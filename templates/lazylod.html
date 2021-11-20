@@ -1,0 +1,39 @@
+<script type="text/javascript">
+
+const images = document.querySelectorAll('.lazylod');
+const config = {
+  rootMargin: '50px 0px',
+  threshold: 0.1
+};
+
+
+let observer = new IntersectionObserver(onIntersection, config);
+  images.forEach(image => {
+    observer.observe(image);
+  });
+
+  function onIntersection(entries) {
+
+  entries.forEach(entry => {
+ 
+    if (entry.intersectionRatio > 0) {
+
+   
+      observer.unobserve(entry.target);
+      preloadImage(entry.target);
+    }
+  });
+}
+
+if (!('IntersectionObserver' in window)) {
+  Array.from(images).forEach(image => preloadImage(image));
+} else {
+  // It is supported, load the images
+  observer = new IntersectionObserver(onIntersection, config);
+  images.forEach(image => {
+ 
+   observer.observe(image);
+  });
+}
+
+</script>

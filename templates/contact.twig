@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+ {% use 'header.html.twig' %}
+
+<head>
+{% block head %}
+
+     {{ parent() }}
+
+{% endblock %}
+</head>
+<body>
+ {% block nav %}
+
+  {{ parent() }} 
+
+ {% endblock %}
+<div class="blogpeek">
+    <div class="wrapper">
+      {% set assets = craft.assets()
+            .kind('image') %}
+
+      {% set rel = assets.all() %}
+
+      {% set feeds = craft.entries() 
+       .section('socials') %}
+
+      {% set frontfeed = feeds.all() %}
+        
+      {% for entry in frontfeed %}
+       
+      <div style=" padding: 2em; margin: 1.5em; width: {{ entry.postsize }}; height:auto; border: 2px solid {{ entry.cancolour }}; box-shadow: 5px 10px {{ entry.cancolour }}; color: #000;">
+       <a href="{{ entry.linkto }}" style="top:0; left:0;width:100%; height:100%;">
+        <h2 style="color: {{ entry.textColour }};">{{ entry.title }}</h2> 
+         {% for rel in entry.photo.all %}
+          <img src="{{ rel.url }}" alt="photot" height="100%" width="100%"><figcaption>{{ entry.caption }}</figcaption>
+         {% endfor %}
+          </a>
+          <p><b>{{ entry.subt }}</b>{{ entry.detail | nl2br }}</p>
+        </div>
+       {% endfor %}
+  </div>
+</div>
+    </body>
+    <footer>
+ {% use 'footer.html' %}
+ {% block footer %}
+ {{ parent() }}
+ {% endblock %}
+ </footer>
+</html>

@@ -1,0 +1,113 @@
+<html lang="en">
+
+ {% use 'header.html.twig' %} 
+ 
+<head>
+ {% block head %}
+
+     {{ parent() }}
+
+{% endblock %} 
+</head>
+<body>
+ {% block nav %}
+
+  {{ parent() }} 
+
+ {% endblock %}
+    {% set requestedSlug = craft.app.request.getSegment(2) %}
+
+    {% set entry = craft.entries()
+    .slug(requestedSlug|literal) 
+    .one() %}
+
+    {% set entries = craft.entries()
+     .section('filmSoup')
+     .type('filmSoup')
+     .with([
+      ['photo', { kind: 'image'}],
+      ['fallback', { kind: 'image'}],
+    ]) %}
+
+	{% set galsets = craft.assets() 
+     .section('filmSoup')
+     .kind('image')
+     .entries() %}
+
+{% set parent = galsets.all() %}
+
+    {# {% set fbak = craft.assets()
+    .section('filmSoup')
+    .filename('*.jpg')
+    .entries %} #}
+    {# {% set fallback = fbak.all() ?? galset.all() ?? null %} #}
+
+    <div class="projband" style="margin-top: 5em;">
+        <div class="galholder">
+	        <div id="{{ entry.title }}" style="display: inherit; height: auto; width: auto;"> 
+                <div id="demo-test-gallery" class="demo-gallery">     
+                        {% if requestedSlug|length %}      
+                        {% for fback in entry.fallback.all %}              
+                        <a href="{{ fback.url }}" data-size="1600x1079" data-med="{{ fback.url }}" data-med-size="1060x715" data-author="Elliot" class="demo-gallery__img--main" style="flex: 1 2 40em;">
+	                     	 <picture>         
+                  				<img class="lazylod" src="{{ fback.url }}" data-src="{{ fback.url }}" alt="Alt Text!">
+  	                  		 </picture>
+                         </a>                    
+                        {% endfor %}
+                         {% endif %}  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="galnav">
+        <a href="http://tawno.co.uk/elliotphoto/web/fsoup"><h3>Back</h3></a>
+    </div>
+ <div id="gallery" class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+          <div class="pswp__container">
+			<div class="pswp__item"></div>
+			<div class="pswp__item"></div>
+			<div class="pswp__item"></div>
+          </div>
+          <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+				<div class="pswp__counter"></div>
+				<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+				<button class="pswp__button pswp__button--share" title="Share"></button>
+				<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+				<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+				<div class="pswp__preloader">
+					<div class="pswp__preloader__icn">
+					  <div class="pswp__preloader__cut">
+					    <div class="pswp__preloader__donut"></div>
+					  </div>
+					</div>
+				</div>
+            </div>
+			<!-- <div class="pswp__loading-indicator"><div class="pswp__loading-indicator__line"></div></div> -->
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	            <div class="pswp__share-tooltip">
+					<!-- <a href="#" class="pswp__share--facebook"></a>
+					<a href="#" class="pswp__share--twitter"></a>
+					<a href="#" class="pswp__share--pinterest"></a>
+					<a href="#" download class="pswp__share--download"></a> -->
+	            </div>
+	        </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+              <div class="pswp__caption__center">
+              </div>
+            </div>
+          </div>
+        </div>
+ </body>
+<footer>
+ {% use 'footer.html' %}
+ {% block footer %}
+ {{ parent() }}
+ {% endblock %}
+ </footer>
+
+</html>

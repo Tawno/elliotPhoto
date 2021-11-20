@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% use "/jesse/header.html.twig" %}
+
+  <head>
+    {% block head %}
+      {{ parent() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block nav %}
+      {{ parent() }}
+    {% endblock %}
+
+    <div class="backpic"><img class="backpic" src="/templates/img/homepic.jpg">
+    <h1>poet anarchist .</h1>
+      <div class="logo-main"><img src="/templates/img/JPlogo.png"></div>
+      <div class="quote-grid">
+        <div class="quote" id="qu1">“Yeh.. it 
+was alright.” <br /><i>- Gary from Leicester</i>
+</div>     
+          <div class="quote" id="qu2">“Pretty sure he was insulting me but was so polite I didn’t mind.” <br /><i>- Georgina from Spade</i></div>
+          <div class="quote" id="qu3">“Support your local tosh!” <br /><i>- A passing cyclist.</i></div>
+      </div>
+      {# <div class="wrapper">
+        {% set assets = craft.assets().volume('gallery').kind('image') %}
+
+        {% set rel = assets.all() %}
+
+        {% set feeds = craft.entries().section('feed') %}
+
+        {% set frontfeed = feeds.all() %}
+
+        {% for entry in frontfeed %}
+          <div style=" padding: 2em; margin: 1.5em; width: {{
+            entry.postsize
+            }}; height:auto; border: 2px solid {{
+            entry.cancolour
+            }}; box-shadow: 5px 10px {{ entry.cancolour }}; color: #000;">
+            <a href="{{ entry.linkto }}"
+              style="top:0; left:0;width:100%; height:100%;">
+              <h2 style="color: {{ entry.textColour }};">
+                {{ entry.title }}
+              </h2>
+              {% for rel in entry.photo.all %}
+                <img src="{{ rel.url }}"
+                  alt="photot"
+                  height="100%"
+                  width="100%" />
+                <figcaption>
+                  {{ entry.caption }}
+                </figcaption>
+              {% endfor %}
+              <p>
+                <b>{{ entry.subt }}</b>{{ entry.detail|nl2br }}
+              </p>
+            </a>
+          </div>
+        {% endfor %}
+      </div> #}
+    </div>
+  </body>
+  <footer>
+    {% use "footer.html" %}
+    {% block footer %}
+      {{ parent() }}
+    {% endblock %}
+  </footer>
+</html>
